@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 
 scaler = joblib.load("artifacts/preprocessor.pkl")
-model_class = joblib.load("artifacts/model_class.pkl")
-model_reg = joblib.load("artifacts/model_reg.pkl")
+model_class = joblib.load("models/classification_model.pkl")
+model_reg = joblib.load("models/regression_model.pkl")
 mlb = joblib.load("mlb.pkl")
 
 def make_prediction_class(features_class):
