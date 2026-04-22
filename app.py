@@ -38,6 +38,7 @@ def main():
         ]
     )
     genders = ["Male", "Female"]
+    gender_features = {f"Gender_{g}":0 for g in genders}
     gender_features[f"Gender_{gender}"] = 1
     branch = st.selectbox(
         "Branch", [
@@ -49,6 +50,7 @@ def main():
         ]
     )
     branches = ["CSE", "ECE", "IT", "ME", "CE"]
+    branch_features = {f"Branch_{b}":0 for b in branches}
     branch_features[f"Branch_{branch}"] = 1
     cgpa = st.number_input("CGPA", min_value = 0.0, max_value = 10.0, value = 8.0)
     tenth_percentage = st.number_input("Tenth Grade Score", min_value = 0.0, max_value = 100.0, value = 74.0)
