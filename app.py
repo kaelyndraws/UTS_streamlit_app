@@ -49,7 +49,7 @@ def main():
         ]
     )
     branches = ["CSE", "ECE", "IT", "ME", "CE"]
-   branch_features[f"Branch_{branch}"] = 1
+    branch_features[f"Branch_{branch}"] = 1
     cgpa = st.number_input("CGPA", min_value = 0.0, max_value = 10.0, value = 8.0)
     tenth_percentage = st.number_input("Tenth Grade Score", min_value = 0.0, max_value = 100.0, value = 74.0)
     twelfth_percentage = st.number_input("Twelfth Grade Score", min_value = 0.0, max_value = 100.0, value = 74.0)
