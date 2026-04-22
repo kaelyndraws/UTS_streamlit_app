@@ -9,14 +9,20 @@ model_reg = joblib.load("models/regression_model.pkl")
 # mlb = joblib.load("mlb.pkl")
 
 def make_prediction_class(features_class):
-    input_array_class = np.array(features_class).reshape(1, -1)
+    input_array_class = pd.DataFrame([features_class])
+    input_array_class = pd.get_dummies(input_array_class)
+    cols = joblib.load("artifacts/columns_class.pkl")
+    input_array_class = input_array_class.reindex(columns = cols, fill_value = 0)
     x_scaled_class = scaler.transform(input_array_class)
     prediction_class = model_class.predict(x_scaled_class)
 
     return prediction_class[0]
 
 def make_prediction_reg(features_reg):
-    input_array_reg = np.array(features_reg).reshape(1, -1)
+    input_array_reg = pd.DataFrame([features_reg])
+    input_array_reg = pd.get_dummies(input_array_reg)
+    cols = joblib.load("artifacts/columns_reg.pkl")
+    input_array_reg = input_array_reg.reindex(columns = cols, fill_value = 0)
     x_scaled_reg = scaler.transform(input_array_reg)
     prediction_reg = model_reg.predict(x_scaled_reg)
 
