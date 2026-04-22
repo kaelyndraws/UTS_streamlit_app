@@ -25,7 +25,7 @@ def make_prediction_reg(features_reg):
 def main():
     st.title("Machine Learning Placement Status and Salary (LPA) Prediction Model Deployment")
 
-    gender = st.multiselect(
+    gender = st.selectbox(
         "Gender", [
             "Male",
             "Female"
@@ -33,7 +33,7 @@ def main():
     )
     genders = ["Male", "Female"]
     gender_features = {f"Gender_{g}":0 for g in genders}
-    branch = st.multiselect(
+    branch = st.selectbox(
         "Branch", [
             "CSE",
             "ECE",
@@ -59,7 +59,7 @@ def main():
     certifications_count = st.number_input("Certifications Count", min_value = 0, max_value = 9, value = 2)
     sleep_hours = st.number_input("Number of Sleep Hours", min_value = 4.0, max_value = 9.0, value = 6.0)
     stress_level = st.number_input("Stress Level", min_value = 1, max_value = 10, value = 6)
-    part_time_job = st.multiselect(
+    part_time_job = st.selectbox(
         "Part Time Job", [
             "No",
             "Yes"
@@ -69,7 +69,7 @@ def main():
         "No": 0,
         "Yes": 1
     }[part_time_job]
-    family_income_level = st.multiselect(
+    family_income_level = st.selectbox(
         "Family Income Level", [
             "Low",
             "Medium",
@@ -81,7 +81,7 @@ def main():
         "Medium": 1,
         "High": 2
     }[family_income_level]
-    city_tier = st.multiselect(
+    city_tier = st.selectbox(
         "City Tier", [
             "Tier 1",
             "Tier 2",
@@ -93,7 +93,7 @@ def main():
         "Tier 2": 1,
         "Tier 3": 2
     }[city_tier]
-    internet_access = st.multiselect(
+    internet_access = st.selectbox(
         "Internet Access", [
             "No",
             "Yes"
@@ -103,7 +103,7 @@ def main():
         "No": 0,
         "Yes": 1
     }[internet_access]
-    extracurricular_involvement = st.multiselect(
+    extracurricular_involvement = st.selectbox(
         "Extracurricular Involvement", [
             "Low",
             "Medium",
