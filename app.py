@@ -158,10 +158,13 @@ def main():
 
         st.success(f"""
         The prediction for placement status is: {result_class}
+        
         The prediction for salary (LPA) is: {result_reg}
 
         Note:
+        
         1 = Placed
+        
         0 = Not Placed
         """)
 
