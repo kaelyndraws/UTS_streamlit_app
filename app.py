@@ -156,7 +156,14 @@ def main():
         result_class = make_prediction_class(features)
         result_reg = make_prediction_reg(features)
 
-        st.success(f"The prediction for placement status is: {result_class}\nThe prediction for salary (LPA) is: {result_reg}")
+        st.success(f"""
+        The prediction for placement status is: {result_class}
+        The prediction for salary (LPA) is: {result_reg}
+
+        Note:
+        1 = Placed
+        0 = Not Placed
+        """)
 
 if __name__ == "__main__":
     main()
