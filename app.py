@@ -6,7 +6,7 @@ import pandas as pd
 scaler = joblib.load("artifacts/preprocessor.pkl")
 model_class = joblib.load("models/classification_model.pkl")
 model_reg = joblib.load("models/regression_model.pkl")
-mlb = joblib.load("mlb.pkl")
+# mlb = joblib.load("mlb.pkl")
 
 def make_prediction_class(features_class):
     input_array_class = np.array(features_class).reshape(1, -1)
