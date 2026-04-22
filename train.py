@@ -49,6 +49,8 @@ def train(train_scaled_class, train_scaled_reg):
         os.makedirs("models", exist_ok = True)
         joblib.dump(model_class, "models/classification_model.pkl", compress = 3)
         joblib.dump(model_reg, "models/regression_model.pkl", compress = 3)
+        joblib.dump(x_train_class.columns, "artifacts/columns_class.pkl")
+        joblib.dump(x_train_reg.columns, "artifacts/columns_reg.pkl")
         
         return run.info.run_id
     
