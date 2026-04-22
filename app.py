@@ -10,7 +10,7 @@ model_reg = joblib.load("models/regression_model.pkl")
 
 def make_prediction_class(features_class):
     input_array_class = pd.DataFrame([features_class])
-    input_array_class = pd.get_dummies(input_array_class)
+    # input_array_class = pd.get_dummies(input_array_class)
     cols = joblib.load("artifacts/columns_class.pkl")
     input_array_class = input_array_class.reindex(columns = cols, fill_value = 0)
     x_scaled_class = scaler.transform(input_array_class)
@@ -20,7 +20,7 @@ def make_prediction_class(features_class):
 
 def make_prediction_reg(features_reg):
     input_array_reg = pd.DataFrame([features_reg])
-    input_array_reg = pd.get_dummies(input_array_reg)
+    # input_array_reg = pd.get_dummies(input_array_reg)
     cols = joblib.load("artifacts/columns_reg.pkl")
     input_array_reg = input_array_reg.reindex(columns = cols, fill_value = 0)
     x_scaled_reg = scaler.transform(input_array_reg)
@@ -38,7 +38,7 @@ def main():
         ]
     )
     genders = ["Male", "Female"]
-    gender_features = {f"Gender_{g}":0 for g in genders}
+    gender_features[f"Gender_{gender}"] = 1
     branch = st.selectbox(
         "Branch", [
             "CSE",
@@ -49,7 +49,7 @@ def main():
         ]
     )
     branches = ["CSE", "ECE", "IT", "ME", "CE"]
-    branch_features = {f"Branch_{b}":0 for b in branches}
+   branch_features[f"Branch_{branch}"] = 1
     cgpa = st.number_input("CGPA", min_value = 0.0, max_value = 10.0, value = 8.0)
     tenth_percentage = st.number_input("Tenth Grade Score", min_value = 0.0, max_value = 100.0, value = 74.0)
     twelfth_percentage = st.number_input("Twelfth Grade Score", min_value = 0.0, max_value = 100.0, value = 74.0)
@@ -125,7 +125,32 @@ def main():
     academic_score = (tenth_percentage + twelfth_percentage + (cgpa * 10)) / 3
     
     if st.button("Make Prediction"):
-        features = [gender_features, branch_features, cgpa, tenth_percentage, backlogs, study_hours_per_day, attendance_percentage, projects_completed, internships_completed, coding_skill_rating, communication_skill_rating, aptitude_skill_rating, hackathons_participated, certifications_count, sleep_hours, stress_level, part_time_job_encoded, family_income_level_encoded, city_tier_encoded, internet_access_encoded, extracurricular_involvement_encoded, total_skills, academic_score]
+        features = {
+            **gender_features,
+            **branch_features,
+            "cgpa": cgpa,
+            "tenth_percentage": tenth_percentage,
+            "twelfth_percentage": twelfth_percentage,
+            "backlogs": backlogs,
+            "study_hours_per_day": study_hours_per_day,
+            "attendance_percentage": attendance_percentage,
+            "projects_completed": projects_completed,
+            "internships_completed": internships_completed,
+            "coding_skill_rating": coding_skill_rating,
+            "communication_skill_rating": communication_skill_rating,
+            "aptitude_skill_rating": aptitude_skill_rating,
+            "hackathons_participated": hackathons_participated,
+            "certifications_count": certifications_count,
+            "sleep_hours": sleep_hours,
+            "stress_level": stress_level,
+            "part_time_job": part_time_job_encoded,
+            "family_income_level": family_income_level_encoded,
+            "city_tier": city_tier_encoded,
+            "internet_access": internet_access_encoded,
+            "extracurricular_involvement": extracurricular_involvement_encoded,
+            "total_skills": total_skills,
+            "academic_score": academic_score
+        }
         result_class = make_prediction_class(features)
         result_reg = make_prediction_reg(features)
 
