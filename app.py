@@ -3,8 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
-scaler_class = joblib.load("artifacts/classification_model.pkl")
-scaler_reg = joblib.load("artifacts/regression_model.pkl")
+scaler = joblib.load("artifacts/preprocessor.pkl")
 model_class = joblib.load("artifacts/model_class.pkl")
 model_reg = joblib.load("artifacts/model_reg.pkl")
 mlb = joblib.load("mlb.pkl")
