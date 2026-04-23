@@ -168,7 +168,7 @@ def main():
             st.success(f"""
             The prediction for placement status is: {class_label} ({class_pred})
             
-            The prediction for salary (LPA) is: {result_reg:.2f}
+            The prediction for salary (LPA) is: {reg_pred:.2f}
             """)
         
         except requests.exceptions.ConnectionError:
