@@ -154,23 +154,30 @@ def main():
             "total_skills": total_skills,
             "academic_score": academic_score
         }
-        api_url = "https://127.0.0.1:8000/predict/all"
-        response = requests.post(api_url, json = features)
+        api_url = "http://127.0.0.1:8000/predict/all"
 
-        if response.status_code == 200:
+        try:
+            response = requests.post(api_url, json=features, timeout=10)
+            response.raise_for_status()
             result = response.json()
-            class_pred = result["classification"]["prediction"]
+        
             class_label = result["classification"]["label"]
+            class_pred = result["classification"]["prediction"]
             reg_pred = result["regression"]["prediction"]
-
+        
             st.success(f"""
             The prediction for placement status is: {class_label} ({class_pred})
             
             The prediction for salary (LPA) is: {result_reg:.2f}
             """)
-        else:
-            st.error(f"Request failed: {response.status_code}")
-            st.write(response.text)
+        
+        except requests.exceptions.ConnectionError:
+            st.error("Cannot connect to FastAPI server. Make sure the API is running and the URL is correct.")
+        except requests.exceptions.Timeout:
+            st.error("Request timed out.")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Request failed: {e}")
+        response = requests.post(api_url, json = features)
 
 if __name__ == "__main__":
     main()
