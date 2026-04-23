@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+import requests
 
 scaler = joblib.load("artifacts/preprocessor.pkl")
 model_class = joblib.load("models/classification_model.pkl")
@@ -153,20 +154,23 @@ def main():
             "total_skills": total_skills,
             "academic_score": academic_score
         }
-        result_class = make_prediction_class(features)
-        result_reg = make_prediction_reg(features)
+        api_url = "https://127.0.0.1:8000/predict/all"
+        response = requests.post(api_url, json = features)
 
-        st.success(f"""
-        The prediction for placement status is: {result_class}
-        
-        The prediction for salary (LPA) is: {result_reg}
+        if response.status_code == 200:
+            result = response.json()
+            class_pred = result["classification"]["prediction"]
+            class_label = result["classification"]["label"]
+            reg_pred = result["regression"]["prediction"]
 
-        Note:
-        
-        1 = Placed
-        
-        0 = Not Placed
-        """)
+            st.success(f"""
+            The prediction for placement status is: {class_label} ({class_pred})
+            
+            The prediction for salary (LPA) is: {result_reg:.2f}
+            """)
+        else:
+            st.error(f"Request failed: {response.status_code}")
+            st.write(response.text)
 
 if __name__ == "__main__":
     main()
