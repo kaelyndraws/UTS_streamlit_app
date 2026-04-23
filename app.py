@@ -154,7 +154,7 @@ def main():
             "total_skills": total_skills,
             "academic_score": academic_score
         }
-        api_url = "http://127.0.0.1:8000/predict/all"
+        api_url = "https://127.0.0.1:8000/predict/all"
 
         try:
             response = requests.post(api_url, json=features, timeout=10)
